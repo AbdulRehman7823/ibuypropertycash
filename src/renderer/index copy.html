@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>I Buy Property Cash</title>
+</head>
+
+<body>
+
+    <div class="notification hide" id="notification">
+        <span id="notification-svg-span">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
+          </svg>
+        </span>
+        <div class="notification-title">Sent</div>
+        <div class="notification-desc">Your request is sent successfully.</div>
+        <span id="notification-close">&times;</span>
+      </div>
+
+    <div class="modal" id="general-modal" style="display: none;">
+
+
+
+    </div>
+
+    <main>
+        <section class="logo-section">
+            <div class="logo-container">
+                <img src="assets/logo.webp">
+                <p>
+                    I<span>B</span>uy<span>P</span>roperty<span>C</span>ash
+                </p>
+            </div>
+
+            <div>
+                <span class="svg-span">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#e8eaed">
+                        <path
+                            d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
+                    </svg>
+                </span>
+            </div>
+        </section>
+
+        <section class="flex grow flex-row">
+            <div class="side-bar-container">
+                <button class="side-bar-btn" onclick="openPanel('home-section')">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#e8eaed">
+                        <path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z" />
+                    </svg>
+                    <p>Home</p>
+                </button>
+
+                <button class="side-bar-btn" onclick="openPanel('campaign-section')">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#e8eaed">
+                        <path
+                            d="M720-440v-80h160v80H720Zm48 280-128-96 48-64 128 96-48 64Zm-80-480-48-64 128-96 48 64-128 96ZM200-200v-160h-40q-33 0-56.5-23.5T80-440v-80q0-33 23.5-56.5T160-600h160l200-120v480L320-360h-40v160h-80Zm360-146v-268q27 24 43.5 58.5T620-480q0 41-16.5 75.5T560-346Z" />
+                    </svg>
+                    <p>Campaigns</p>
+                </button>
+
+                <button class="side-bar-btn" onclick="openPanel('comments-section')">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#e8eaed">
+                        <path
+                            d="M280-240q-17 0-28.5-11.5T240-280v-80h520v-360h80q17 0 28.5 11.5T880-680v600L720-240H280ZM80-280v-560q0-17 11.5-28.5T120-880h520q17 0 28.5 11.5T680-840v360q0 17-11.5 28.5T640-440H240L80-280Z" />
+                    </svg>
+                    <p>Comments</p>
+                </button>
+
+                <button class="side-bar-btn" onclick="openPanel('facebook-section')">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#e8eaed">
+                        <path
+                            d="M40-160v-160q0-34 23.5-57t56.5-23h131q20 0 38 10t29 27q29 39 71.5 61t90.5 22q49 0 91.5-22t70.5-61q13-17 30.5-27t36.5-10h131q34 0 57 23t23 57v160H640v-91q-35 25-75.5 38T480-200q-43 0-84-13.5T320-252v92H40Zm440-160q-38 0-72-17.5T351-386q-17-25-42.5-39.5T253-440q22-37 93-58.5T480-520q63 0 134 21.5t93 58.5q-29 0-55 14.5T609-386q-22 32-56 49t-73 17ZM160-440q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T280-560q0 50-34.5 85T160-440Zm640 0q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T920-560q0 50-34.5 85T800-440ZM480-560q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T600-680q0 50-34.5 85T480-560Z" />
+                    </svg>
+                    <p>Facebook</p>
+                </button>
+
+                <div class="grow">
+                </div>
+
+                <button class="side-bar-btn" onclick="closeApplication()">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#e8eaed">
+                        <path
+                            d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+                    </svg>
+
+                    <p>Close</p>
+                </button>
+
+            </div>
+
+            <div class="main-content-section grow" id="main-content-section">
+
+                <div id="home-section" data-panel="true" class="grow flex flex-col gap-xl" style="display: none;">
+                    <div class="home-card-container">
+                        <div class="home-card">
+                            <p>
+                                Current campaign
+                            </p>
+                            <h1 id="stats_current_campaign">
+                                0
+                            </h1>
+                            <em>Your Currently Campaings</em>
+                        </div>
+
+                        <div class="home-card">
+                            <p>
+                                Total Comments
+                            </p>
+                            <h1 id="stats_total_comments" >
+                                212
+                            </h1>
+                            <em>Your all Campaign Comments</em>
+                        </div>
+
+                        <div class="home-card">
+                            <p>
+                                Completed Campaigns
+                            </p>
+                            <h1 id="stats_completed_campaign">
+                                0
+                            </h1>
+                            <em>All Completed Campaigns</em>
+                        </div>
+
+                        <div class="home-card">
+                            <p>
+                                Campaign Failure
+                            </p>
+                            <h1 id="stats_failed_campaign" >
+                                0
+                            </h1>
+                            <em>Your Currently Campaings</em>
+                        </div>
+
+                    </div>
+
+                    <div class="flex flex-col grow">
+                        <h3>
+                            Recent Campaigns
+                        </h3>
+                        <div class="prominent-section">
+                            <div class="table-parent">
+                                <table id="recent-campaign-table" >
+                                    <thead>
+                                        <tr>
+                                            <th >
+                                                ID
+                                            </th>
+                                            <th >
+                                                Date
+                                            </th>
+                                            <th >
+                                                Name
+                                            </th>
+                                            <th >
+                                                Limit
+                                            </th>
+
+                                            <th >
+                                                Status
+                                            </th>
+    
+                                            <th style="width: 100px;">
+                                                Comments
+                                            </th>
+                                            <th style="width: 100px;">
+                                                Action
+                                            </th>
+                                            <th style="width: 100px;">
+                                                Delete
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recent-campaign-tbody">
+                                   
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="campaign-section" data-panel="true" class=" flex flex-col gap-xl grow" style="position: relative;">
+                    <div class="flex flex-row flex-between">
+                        <div class="svg-input">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                fill="#e8eaed">
+                                <path
+                                    d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                            </svg>
+                            <input type="text" placeholder="Search..." oninput="handleCampaingSearch(this)">
+                        </div>
+                        <button class="btn" onclick="openModal('campaign')">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                fill="#e8eaed">
+                                <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+                            </svg>
+                            <p>Create Campaign</p>
+                        </button>
+                    </div>
+                    <div class="prominent-section">
+
+                        
+                        <div class="table-parent">
+                            <table id="campaign-table">
+                                <thead>
+                                    <tr>
+                                        <th >
+                                            ID
+                                        </th>
+                                        <th >
+                                            Date
+                                        </th>
+                                        <th >
+                                            Name
+                                        </th>
+                                        <th >
+                                            Limit
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+                                        <th style="width: 100px;">
+                                            Comments
+                                        </th>
+                                        <th style="width: 100px;">
+                                            Action
+                                        </th>
+                                        <th style="width: 100px;">
+                                            Delete
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="campaign-tbody">
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class=" flex flex-col gap-xl grow post-section" id="posts-panel" >
+                        <div class="flex flex-row flex-between">
+                           
+                            <span class="svg-btn" onclick="closePanel('posts-panel')">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+                            </span>
+                            <div class="svg-input">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                    fill="#e8eaed">
+                                    <path
+                                        d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                                </svg>
+                                <input type="text" placeholder="Search..." oninput="handlePostSearch(this)">
+                            </div>
+                        </div>
+
+                        <div class="prominent-section" style="overflow: hidden;">
+                            <div class="table-parent" style="overflow: auto;">
+                                <table id="posts-table">
+                                    <thead>
+                                        <tr>
+                                            <th >
+                                                ID
+                                            </th>
+                                            <th >
+                                                Date
+                                            </th>
+                                            <th >
+                                                Title
+                                            </th>
+                                            <th >
+                                                Profile
+                                            </th>
+                                          
+                                            <th >
+                                                Count
+                                            </th>
+                                          
+                                            <th style="width: 130px;">
+                                                View Comments
+                                            </th>
+                                            
+                                            <th style="width: 100px;">
+                                                Ask AI
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="posts-tbody">
+    
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                ID
+                                            </td>
+                                            <td >
+                                                Date
+                                            </td>
+                                            <td >
+                                                Title
+                                            </td>
+                                            <td >
+                                                Profile
+                                            </td>
+                                          
+                                            <td >
+                                                Count
+                                            </td>
+                                          
+                                            <td style="width: 130px;">
+                                                View Comments
+                                            </td>
+                                            
+                                            <td style="width: 100px;">
+                                                Ask AI
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+    
+                        </div>
+                    </div>
+
+
+
+
+            
+                </div>
+
+                <div id="comments-section" data-panel="true" style="display: none;">
+                    Comments
+                </div>
+
+
+                <div id="facebook-section" data-panel="true" style="display: none;">
+                    Facebook
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <script src="script/constants.js"></script>
+    <script src="script/campaign/CampaignManager.js"></script>
+    <script src="script/script.js"></script>
+</body>
+
+</html>
