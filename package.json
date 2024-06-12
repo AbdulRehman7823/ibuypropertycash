@@ -9,6 +9,15 @@
   },
   "build": {
     "appId": "com.app.ibuypropertycash",
+    "mac": {
+      "category": "com.app.ibuypropertycash",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "type": "distribution",
+      "icon": "./icon.icns"
+    },
     "win": {
       "target": "nsis",
       "icon": "icon.ico"
