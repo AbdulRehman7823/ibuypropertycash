@@ -321,11 +321,13 @@ class CampaignManager {
                 </div>`;
   }
 
-  renderCampaigns() {
-    let html = this.campaigns
+  renderCampaigns(campaigns) {
+    if(!campaigns)
+      campaigns  =  this.campaigns;
+    let html = campaigns
       .map((campaign, index) => this.generateCampaignRow(campaign, index))
       .join("");
-    if (this.campaigns.length === 0) html = this.getEmptyHtml();
+    if (campaigns.length === 0) html = this.getEmptyHtml();
     document.getElementById("campaign-tbody").innerHTML = html;
   }
 
@@ -356,7 +358,8 @@ class CampaignManager {
       this.renderPosts();
     } else {
       const filtered = this.currentPosts.posts.filter((cam) =>
-        cam.title.toLowerCase().includes(keyword.toLowerCase())
+        cam?
+        cam.title.toLowerCase().includes(keyword.toLowerCase()):false
       );
       this.renderPosts(filtered);
     }

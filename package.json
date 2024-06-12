@@ -4,7 +4,21 @@
   "description": "",
   "main": "src/main/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.app.ibuypropertycash",
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico",
+      "uninstallDisplayName": "ibuypropertycash-uninstaller"
+    }
   },
   "author": "",
   "license": "ISC",
