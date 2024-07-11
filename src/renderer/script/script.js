@@ -106,14 +106,13 @@ function  handlePostAction(el){
   switch(action){
     case 'comments':{
       campaignManager.showComments(id,keyId);
-
     }break;
   }
 
 
 }
 
-function openPanel(id) {
+function openPanel(id,el=null) {
   document.querySelectorAll("div[data-panel]").forEach((panel) => {
     if (panel.id == id) {
       panel.style.display = "flex";
@@ -121,6 +120,21 @@ function openPanel(id) {
       panel.style.display = "none";
     }
   });
+
+
+  if(el){
+    document.querySelectorAll('.side-bar-btn').forEach((btn) => {
+      if(btn==el){
+        btn.classList.add("active");
+      }else{
+        btn.classList.remove("active");
+      }
+    });
+  }
+
+  if(id=='comments-section'){
+     campaignManager.renderAllCommentsSection()
+  }
 
   if (id == "facebook-section") {
     ipcRenderer.invoke("fb-manager", { action: "show" });
@@ -132,6 +146,7 @@ function openPanel(id) {
 function closeApplication() {
   ipcRenderer.send("close-app");
 }
+
 
 
 
@@ -152,13 +167,9 @@ function handleCommentsSearch(el){
 }
 
 
-
-
 function closePanel(id){
   document.getElementById(id).style.display = "none";
 }
-
-
 
  
 

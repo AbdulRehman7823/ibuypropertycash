@@ -158,6 +158,10 @@ main {
   transition: 0.3s;
 }
 
+.side-bar-btn.active{
+  background-color: var(--clr-pink);
+}
+
 .side-bar-btn svg {
   width: 25px;
   height: 25px;
@@ -191,7 +195,9 @@ main {
 }
 
 .main-content-section {
+  max-height: 100%;
   flex-grow: 1;
+  overflow: hidden;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -786,4 +792,33 @@ table thead tr th:last-child {
   z-index: 100;
   top: 0px;
   left: 0px;
+}
+
+
+.all-comments-sec{
+
+  display: flex;  
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.all-comments-sec .table-parent{
+
+  box-shadow: rgba(0, 0, 0, 0.164) 0px 2px 8px 0px;
+  border-radius: 10px;
+  max-height:300px;
+  min-height: 300px;
+
+  background-color: var(--clr-body-bg);
+}
+
+.table-h-txt{
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--clr-heading);
+  
 }

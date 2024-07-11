@@ -47,9 +47,9 @@
             </div>
         </section>
 
-        <section class="flex grow flex-row">
+        <section class="flex grow flex-row" style="overflow: hidden;">
             <div class="side-bar-container">
-                <button class="side-bar-btn" onclick="openPanel('home-section')">
+                <button class="side-bar-btn active" onclick="openPanel('home-section',this)">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="#e8eaed">
                         <path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z" />
@@ -57,7 +57,7 @@
                     <p>Home</p>
                 </button>
 
-                <button class="side-bar-btn" onclick="openPanel('campaign-section')">
+                <button class="side-bar-btn" onclick="openPanel('campaign-section',this)">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="#e8eaed">
                         <path
@@ -66,7 +66,7 @@
                     <p>Campaigns</p>
                 </button>
 
-                <button class="side-bar-btn" onclick="openPanel('comments-section')">
+                <button class="side-bar-btn" onclick="openPanel('comments-section',this)">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="#e8eaed">
                         <path
@@ -75,7 +75,7 @@
                     <p>Comments</p>
                 </button>
 
-                <button class="side-bar-btn" onclick="openPanel('facebook-section')">
+                <button class="side-bar-btn" onclick="openPanel('facebook-section',this)">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="#e8eaed">
                         <path
@@ -99,9 +99,9 @@
 
             </div>
 
-            <div class="main-content-section grow" id="main-content-section">
+            <div class="main-content-section" id="main-content-section">
 
-                <div id="home-section" data-panel="true" class="grow flex flex-col gap-xl">
+                <div id="home-section" data-panel="true" class="grow flex flex-col gap-xl" >
                     <div class="home-card-container">
                         <div class="home-card">
                             <p>
@@ -365,8 +365,25 @@
 
                 </div>
 
-                <div id="comments-section" data-panel="true" style="display: none;">
-                    Comments
+                <div id="comments-section" data-panel="true"  class="flex flex-col gap-xl" style="display:none;overflow: hidden;" >
+                    <div class="flex flex-row flex-between">
+                        <div class="svg-input">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                                fill="#e8eaed">
+                                <path
+                                    d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                            </svg>
+                            <input type="text" placeholder="Search..." oninput="handleAllCommentsSearch(this)">
+                        </div>
+                    </div>
+
+                
+                    <div class="prominent-section all-comments-sec" id="comments-section-container" style="overflow: auto;">
+        
+                    </div>
+                    
+
+                    
                 </div>
 
 
@@ -375,6 +392,8 @@
                 </div>
 
             </div>
+
+ 
         </section>
 
     </main>

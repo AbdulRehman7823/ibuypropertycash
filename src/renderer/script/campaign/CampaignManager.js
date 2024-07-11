@@ -216,10 +216,8 @@ class CampaignManager {
     this.renderComments();
   }
 
-  renderComments(comments) {
-    if (!comments) {
-      comments = this.currentComments;
-    }
+
+  getCommentsHTML(comments){
 
     let html = "";
     comments.forEach((comment, index) => {
@@ -249,8 +247,61 @@ class CampaignManager {
          </tr>`;
     });
 
+    return html;
+  }
+
+  renderComments(comments) {
+    if (!comments) {
+      comments = this.currentComments;
+    }
     document.getElementById("comments-panel").style.display = "flex";
-    document.getElementById("comments-tbody").innerHTML = html;
+    document.getElementById("comments-tbody").innerHTML = this.getCommentsHTML(comments);
+  }
+
+
+  renderAllCommentsSection(){
+    let allPosts = [];
+    
+    this.campaigns.forEach(cmp=>{
+        allPosts.push(...cmp.posts)
+    });
+
+    let html  = ``;
+
+    for(let i=0;i<allPosts.length;i++){
+
+      html+=`
+        <p class="table-h-txt">${allPosts[i].title}</p>
+      <div class="table-parent">
+                  
+                            <table >
+                                <thead>
+                                    <tr>
+                                        <th >
+                                            ID
+                                        </th>
+                                        <th >
+                                            Image
+                                        </th>
+                                        <th >
+                                            Name
+                                        </th>
+                                        <th >
+                                            Profile
+                                        </th>
+                                        <th >
+                                            Comments
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+`
+        html += this.getCommentsHTML(allPosts[i].comments);
+        html+=`  </tbody>
+              </table>
+              </div>`
+    }
+    document.getElementById('comments-section-container').innerHTML = html;
   }
 
   generateCampaignRow(campaign, index) {
