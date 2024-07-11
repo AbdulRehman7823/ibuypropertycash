@@ -14,6 +14,8 @@ const CommentReader = {
   scrollBottom: function (data, config) {
     try {
       window.scrollBy("top", 1000);
+      config.onupdate({id:config.id,message:'Scrolling down ...'});
+
       setTimeout(() => this.inspect(data, config), config.actionDelay);
     } catch (err) {
       console.error(err);
@@ -21,8 +23,10 @@ const CommentReader = {
     }
   },
 
+
   inspect: async function (data, config) {
     try {
+      config.onupdate({id:config.id,message:'Try Find ads related to "Property" ...'});
       let mainDivs = document.querySelectorAll(
         'div[role="main"] div.x1lliihq:not([class*=" "])'
       );
@@ -44,11 +48,10 @@ const CommentReader = {
             let data = await ipcRenderer.invoke("fetch-text", {
               dataUrl: dataUrl,
             });
-            if (data.toLowerCase().includes("sponsored")) {
+            if (data.toLowerCase().includes("sponsored") && this.isKeywordMatch(div.innerText)) {  
               currentData.div = div;
-
               if (h4El) {
-                let profileLink = h4El.querySelector("a")?.href;
+                 let profileLink = h4El.querySelector("a")?.href;
                 let name = h4El.textContent;
                 if (profileLink) {
                   currentData.profile = profileLink;
@@ -95,12 +98,15 @@ const CommentReader = {
 
   clickCommentButton: function (data, config) {
     try {
+
+      config.onupdate({id:config.id,message:'One ads Found. Clicking Comment Button.'});
+
       let parent = data.currentData.div;
       let commentBtn = parent.querySelector(
         'div[aria-label="Leave a comment"][role="button"]'
       );
       if (!commentBtn) {
-        this.handleError(data, config, "No comment Button found");
+        this.handleError(data, config, "No comment Button found",'low');
         return;
       }
 
@@ -116,11 +122,15 @@ const CommentReader = {
 
   clickMostRelevantButton: function (data, config) {
     try {
+
+
+      config.onupdate({id:config.id,message:'Try to click "All Comments" button.'});
+
       let modal = document
         .querySelector('div[role="dialog"] div[aria-label="Close"]')
         .closest('div[role="dialog"]');
       if (!modal) {
-        this.handleError(data, config, "Modal Not found");
+        this.handleError(data, config, "Modal Not found",'low');
         return;
       }
       data.currentModal = modal;
@@ -137,7 +147,7 @@ const CommentReader = {
       });
 
       if (!mostRelevantButton) {
-        this.handleError(data, config, "Most Relevant Button not found");
+        this.handleError(data, config, "Most Relevant Button not found",'low');
         return;
       }
 
@@ -152,7 +162,7 @@ const CommentReader = {
     } catch (err) {
       console.error(err);
 
-      this.handleError(data, config, err);
+      this.handleError(data, config, err,'low');
     }
   },
 
@@ -167,24 +177,22 @@ const CommentReader = {
         }
       });
 
-      if (!selectedItem) {
-        this.handleError(data, config, "Can find all comments in menu");
-        return;
+      if (selectedItem) {
+        selectedItem.click();
       }
-
-      selectedItem.click();
-
       setTimeout(() => {
         this.readComments(data, config);
       }, config.actionDelay);
     } catch (err) {
       console.error(err);
-      this.handleError(data, config, err);
+      this.handleError(data, config, err,'low');
     }
   },
 
   readComments: function (data, config) {
     try {
+
+
       let modal = data.currentModal;
       let scrollParent =
         modal.querySelector("h2").parentNode.parentNode.nextSibling;
@@ -214,6 +222,8 @@ const CommentReader = {
 
   next: function (data, config) {
     try {
+
+
       let closeBtn = document.querySelector(
         'div[role="dialog"] div[aria-label="Close"]'
       );
@@ -229,7 +239,7 @@ const CommentReader = {
         this.complete(data, config);
         return;
       }
-      console.log("Going to the next element", data.currentIndex);
+      config.onupdate({id:config.id,message:'Moving Next to find more ads related to properties'});
       setTimeout(() => {
         data = {};
         this.scrollBottom(data, config);
@@ -263,11 +273,104 @@ const CommentReader = {
     return data;
   },
 
-  handleError: function (data, config, err) {
+  handleError: function (data, config, err,intensity='high') {
+
+    if(intensity == 'low'){
+      setTimeout(() => {
+        data = {};
+        this.scrollBottom(data, config);
+      }, config.actionDelay);
+      return;
+    }
     console.log(data, config, err);
     config.onerror({id:config.id,posts:config.posts,error:err});
     return;
   },
+
+ isKeywordMatch: function(text) {
+    // List of keywords to search for
+    const keywords = [
+      "property",
+      "house",
+      "housing",
+      "buy property",
+      "cash property",
+      "property cash",
+      "sell home",
+      "sell property",
+      "property sell",
+      "home sell",
+      "location",
+      "motivated sellers",
+      "sell for cash",
+      "as is sale",
+      "buy my house cash",
+      "sell my house cash",
+      "sell my home cash",
+      "cash offer my home",
+      "quick house sale",
+      "fast home sale",
+      "sell house fast",
+      "home buyers",
+      "we buy houses",
+      "sell property quickly",
+      "cash for homes",
+      "buy houses fast",
+      "sell property as is",
+      "we buy any house",
+      "cash house buyers",
+      "sell your house today",
+      "quick home sale",
+      "urgent home sale",
+      "sell house immediately",
+      "property investors",
+      "real estate investors",
+      "cash home buyers",
+      "sell without realtor",
+      "sell house online",
+      "instant cash offer",
+      "sell property for cash",
+      "house cash offer",
+      "home cash offer",
+      "sell house as is",
+      "we buy houses cash",
+      "sell house quick",
+      "fast cash for house",
+      "cash sale house",
+      "sell home fast",
+      "sell house no fees",
+      "house buyers cash",
+      "sell home without agent",
+      "quick sale house",
+      "fast property sale",
+      "sell house no commission",
+      "cash buyers for homes",
+      "buy homes for cash",
+      "sell house fast for cash",
+      "sell house for quick cash",
+      "buy property cash",
+      "sell home quick",
+      "real estate cash buyers",
+      "quick cash offer",
+      "sell property fast",
+      "cash offer house",
+      "sell home as is",
+      "urgent property sale",
+      "sell house fast no agent",
+      "buy my house now",
+      "sell house today cash",
+      "property quick sale",
+      "buy my house quickly",
+      "fast home sale cash",
+      "we buy homes cash"
+    ];
+  
+    // Convert text to lower case for case-insensitive comparison
+    const lowerCaseText = text.toLowerCase();
+  
+    // Check if any of the keywords are included in the text
+    return keywords.some(keyword => lowerCaseText.includes(keyword));
+  }
 };
 
 module.exports = CommentReader;

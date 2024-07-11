@@ -39,9 +39,9 @@ class FbManager {
       width: 1600,
       height: 1000,
       parent: this.mainWindow,
-      show: false,
+      show: true,
       webPreferences: {
-        offscreen: true,
+        offscreen: false,
         devTools: true,
         nodeIntegration: true,
         nodeIntegrationInSubFrames: true,

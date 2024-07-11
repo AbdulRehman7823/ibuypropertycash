@@ -182,18 +182,37 @@ ipcRenderer.on('login-required',(e,data)=>{
 })
 
 
+
+let updater = document.getElementById('top-status');
+
 ipcRenderer.on('onupdate',(e,data)=>{
+
+
+  updater.innerHTML = '';
+  if(data.message){
+     updater.innerHTML = `<div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <p>${data.message}</p>`
+   return;
+  }
+
    campaignManager.handleOnUpdate(data);
 });
 
 
 ipcRenderer.on('oncomplete',(e,data)=>{
+  updater.innerHTML = ''
   campaignManager.handleOnComplete(data);
   showNotification(svgConstants.success,"Success","Campaign is completed Successfully!",codeConstants.success);
 
 });
 
 ipcRenderer.on('onerror',(e,data)=>{
+  updater.innerHTML = '';
   campaignManager.handleOnError(data);
   showNotification(svgConstants.error,"Error",data.message,codeConstants.error);
 });
